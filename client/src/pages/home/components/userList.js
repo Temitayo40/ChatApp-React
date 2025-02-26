@@ -50,7 +50,7 @@ function UsersList({ searchKey, socket, onlineUser }) {
 
   const IsSelectedChat = (user) => {
     if (selectedChat) {
-      return selectedChat.members.map((m) => m._id).includes(user._id);
+      return selectedChat?.members?.map((m) => m._id).includes(user._id);
     }
     return false;
   };

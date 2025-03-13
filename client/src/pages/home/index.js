@@ -5,7 +5,14 @@ import Sidebar from "./components/sidebar";
 import { io } from "socket.io-client";
 import { useEffect, useState } from "react";
 
+// const socket = io("https://chatapp-9rl2.onrender.com", {
+//   transports: ["websocket", "polling"],
+// });
+
+// export const url = "http://localhost:3000";
+
 const socket = io("https://chatapp-9rl2.onrender.com");
+// const socket = io("http://localhost:5000");
 
 function Home() {
   const { selectedChat, user } = useSelector((state) => state.userReducer);

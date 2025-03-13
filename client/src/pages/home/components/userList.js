@@ -39,8 +39,8 @@ function UsersList({ searchKey, socket, onlineUser }) {
   const openChat = (selectedUserId) => {
     const chat = allChats.find(
       (chat) =>
-        chat.members.map((m) => m._id).includes(currentUser._id) &&
-        chat.members.map((m) => m._id).includes(selectedUserId)
+        chat?.members?.map((m) => m._id).includes(currentUser._id) &&
+        chat?.members?.map((m) => m._id).includes(selectedUserId)
     );
 
     if (chat) {
@@ -50,14 +50,14 @@ function UsersList({ searchKey, socket, onlineUser }) {
 
   const IsSelectedChat = (user) => {
     if (selectedChat) {
-      return selectedChat?.members?.map((m) => m._id).includes(user._id);
+      return selectedChat?.members?.map((m) => m._id).includes(user?._id);
     }
     return false;
   };
 
   const getLastMessageTimeStamp = (userId) => {
     const chat = allChats.find((chat) =>
-      chat.members.map((m) => m._id).includes(userId)
+      chat?.members?.map((m) => m._id).includes(userId)
     );
 
     if (!chat || !chat?.lastMessage) {
@@ -69,7 +69,7 @@ function UsersList({ searchKey, socket, onlineUser }) {
 
   const getlastMessage = (userId) => {
     const chat = allChats.find((chat) =>
-      chat.members.map((m) => m._id).includes(userId)
+      chat?.members?.map((m) => m._id).includes(userId)
     );
 
     if (!chat || !chat.lastMessage) {
@@ -83,10 +83,11 @@ function UsersList({ searchKey, socket, onlineUser }) {
 
   function formatName(user) {
     let fname =
-      user.firstname.at(0).toUpperCase() +
-      user.firstname.slice(1).toLowerCase();
+      user?.firstname?.at(0).toUpperCase() +
+      user?.firstname?.slice(1).toLowerCase();
     let lname =
-      user.lastname?.at(0).toUpperCase() + user.lastname.slice(1).toLowerCase();
+      user?.lastname?.at(0).toUpperCase() +
+      user?.lastname?.slice(1).toLowerCase();
     return fname + " " + lname;
   }
 
@@ -123,7 +124,7 @@ function UsersList({ searchKey, socket, onlineUser }) {
 
   const getUnreadMessageCount = (userId) => {
     const chat = allChats.find((chat) =>
-      chat.members.map((m) => m._id).includes(userId)
+      chat?.members?.map((m) => m._id).includes(userId)
     );
 
     if (
@@ -148,8 +149,8 @@ function UsersList({ searchKey, socket, onlineUser }) {
     } else {
       return allUsers.filter((user) => {
         return (
-          user.firstname?.toLowerCase().includes(searchKey?.toLowerCase()) ||
-          user.lastname?.toLowerCase().includes(searchKey?.toLowerCase())
+          user?.firstname?.toLowerCase().includes(searchKey?.toLowerCase()) ||
+          user?.lastname?.toLowerCase().includes(searchKey?.toLowerCase())
         );
       });
     }
@@ -158,14 +159,14 @@ function UsersList({ searchKey, socket, onlineUser }) {
   return getData().map((obj) => {
     let user = obj;
     if (obj?.members) {
-      user = obj.members.find((mem) => mem._id !== currentUser._id);
+      user = obj?.members?.find((mem) => mem._id !== currentUser._id);
     }
 
     return (
       <div
         className="user-search-filter"
-        onClick={() => openChat(user._id)}
-        key={user._id}
+        onClick={() => openChat(user?._id)}
+        key={user?._id}
       >
         <div
           className={IsSelectedChat(user) ? "selected-user" : "filtered-user"}
@@ -177,7 +178,7 @@ function UsersList({ searchKey, socket, onlineUser }) {
                 alt="Profile Pic"
                 className="user-profile-image"
                 style={
-                  onlineUser.includes(user._id)
+                  onlineUser.includes(user?._id)
                     ? { border: "#82e0aa 3px solid" }
                     : {}
                 }
@@ -192,34 +193,34 @@ function UsersList({ searchKey, socket, onlineUser }) {
                     : "user-default-avatar"
                 }
                 style={
-                  onlineUser.includes(user._id)
+                  onlineUser.includes(user?._id)
                     ? { border: "#82e0aa 3px solid" }
                     : {}
                 }
               >
-                {user.firstname.charAt(0).toUpperCase() +
-                  user.lastname.charAt(0).toUpperCase()}
+                {user?.firstname?.charAt(0).toUpperCase() +
+                  user?.lastname?.charAt(0).toUpperCase()}
               </div>
             )}
             <div className="filter-user-details">
               <div className="user-display-name">{formatName(user)}</div>
               <div className="user-display-email">
-                {getlastMessage(user._id) || user.email}
+                {getlastMessage(user?._id) || user?.email}
               </div>
             </div>
             <div>
-              {getUnreadMessageCount(user._id)}
+              {getUnreadMessageCount(user?._id)}
               <div className="last-message-timestamp">
-                {getLastMessageTimeStamp(user._id)}
+                {getLastMessageTimeStamp(user?._id)}
               </div>
             </div>
             {!allChats.find((chat) =>
-              chat.members.map((m) => m._id).includes(user._id)
+              chat?.members?.map((m) => m._id).includes(user?._id)
             ) && (
               <div className="user-start-chat">
                 <button
                   className="user-start-chat-btn"
-                  onClick={() => startNewChat(user._id)}
+                  onClick={() => startNewChat(user?._id)}
                 >
                   Start Chat
                 </button>

@@ -175,8 +175,8 @@ function ChatArea({ socket }) {
   return (
     <>
       {selectedChat && (
-        <div class="app-chat-area">
-          <div class="app-chat-area-header">{formatName(selectedUser)}</div>
+        <div className="app-chat-area">
+          <div className="app-chat-area-header">{formatName(selectedUser)}</div>
 
           <div className="main-chat-area" id="main-chat-area">
             {allMessages.map((msg) => {
@@ -271,7 +271,7 @@ function ChatArea({ socket }) {
               }}
             />
 
-            <label for="file">
+            <label htmlFor="file">
               <i className="fa fa-picture-o send-image-btn"></i>
               <input
                 type="file"

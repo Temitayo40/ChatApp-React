@@ -20,7 +20,7 @@ function UsersList({ searchKey, socket, onlineUser }) {
     let response = null;
     try {
       dispatch(showLoader());
-      response = await createNewChat([currentUser._id, searchedUserId]);
+      response = await createNewChat([currentUser?._id, searchedUserId]);
       dispatch(hideLoader());
 
       if (response.success) {
@@ -39,7 +39,7 @@ function UsersList({ searchKey, socket, onlineUser }) {
   const openChat = (selectedUserId) => {
     const chat = allChats.find(
       (chat) =>
-        chat?.members?.map((m) => m._id).includes(currentUser._id) &&
+        chat?.members?.map((m) => m._id).includes(currentUser?._id) &&
         chat?.members?.map((m) => m._id).includes(selectedUserId)
     );
 
@@ -76,7 +76,7 @@ function UsersList({ searchKey, socket, onlineUser }) {
       return "";
     } else {
       const msgPrefix =
-        chat?.lastMessage?.sender === currentUser._id ? "You: " : "";
+        chat?.lastMessage?.sender === currentUser?._id ? "You: " : "";
       return msgPrefix + chat?.lastMessage?.text?.substring(0, 25);
     }
   };
@@ -130,7 +130,7 @@ function UsersList({ searchKey, socket, onlineUser }) {
     if (
       chat &&
       chat.unreadMessageCount &&
-      chat.lastMessage?.sender !== currentUser._id
+      chat.lastMessage?.sender !== currentUser?._id
     ) {
       return (
         <div className="unread-message-counter">

@@ -143,14 +143,27 @@ function UsersList({ searchKey, socket, onlineUser }) {
     }
   };
 
+  // function getData() {
+  //   if (searchKey === "" || searchKey === undefined || searchKey === null ) {
+  //     return allChats;
+  //   } else {
+  //     return allUsers.filter((user) => {
+  //       return (
+  //         user?.firstname?.toLowerCase().includes(searchKey?.toLowerCase()) ||
+  //         user?.lastname?.toLowerCase().includes(searchKey?.toLowerCase())
+  //       );
+  //     });
+  //   }
+  // }
+
   function getData() {
-    if (searchKey === "") {
-      return allChats;
+    if (searchKey === "" || searchKey === undefined || searchKey === null) {
+      return allChats.length > 0 ? allChats : allUsers;
     } else {
       return allUsers.filter((user) => {
         return (
-          user?.firstname?.toLowerCase().includes(searchKey?.toLowerCase()) ||
-          user?.lastname?.toLowerCase().includes(searchKey?.toLowerCase())
+            user?.firstname?.toLowerCase().includes(searchKey?.toLowerCase()) ||
+            user?.lastname?.toLowerCase().includes(searchKey?.toLowerCase())
         );
       });
     }
@@ -159,7 +172,7 @@ function UsersList({ searchKey, socket, onlineUser }) {
   return getData().map((obj) => {
     let user = obj;
     if (obj?.members) {
-      user = obj?.members?.find((mem) => mem._id !== currentUser._id);
+      user = obj?.members?.find((mem) => mem?._id !== currentUser?._id);
     }
 
     return (

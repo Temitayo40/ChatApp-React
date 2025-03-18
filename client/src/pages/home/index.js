@@ -11,7 +11,11 @@ import { useEffect, useState } from "react";
 
 // export const url = "http://localhost:3000";
 
-const socket = io("https://chatapp-9rl2.onrender.com");
+// const socket = io("https://chatapp-9rl2.onrender.com");
+const socket = io("https://chatapp-9rl2.onrender.com", {
+  transports: ["websocket", "polling"],
+});
+
 // const socket = io("http://localhost:5000");
 
 function Home() {

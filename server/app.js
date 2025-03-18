@@ -15,9 +15,14 @@ app.use(
 );
 const server = require("http").createServer(app);
 
+const allowedOrigins =
+  process.env.NODE_ENV === "production"
+    ? ["https://chatapp-react-n6do.onrender.com"]
+    : ["http://localhost:3000"];
+
 const io = require("socket.io")(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: allowedOrigins,
     methods: ["GET", "POST"],
   },
 });
